@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg18" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a192f" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <filter id="shadow18" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg18)" />
+
+  <text x="480" y="42" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="26" font-weight="bold" text-anchor="middle">🚀 Real-World Production AWS Architecture</text>
+  <text x="480" y="68" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">End-to-End Secure 2-Tier Web App provisioned entirely with modular Terraform</text>
+
+  <!-- AWS Cloud Border -->
+  <rect x="40" y="85" width="880" height="425" rx="16" fill="#0f172a" stroke="#ff9900" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="65" y="112" fill="#ff9900" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">☁️ AWS Cloud Region (us-east-1)</text>
+
+  <!-- VPC Container -->
+  <rect x="70" y="125" width="820" height="365" rx="12" fill="#172554" stroke="#3b82f6" stroke-width="2"/>
+  <text x="95" y="150" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">🌐 Custom VPC (10.0.0.0/16) + Internet Gateway</text>
+
+  <!-- Public Subnet (Web Tier) -->
+  <g transform="translate(100, 165)" filter="url(#shadow18)">
+    <rect width="360" height="305" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect x="0" y="0" width="360" height="32" rx="10" fill="#10b981"/>
+    <text x="15" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">🟢 Public Subnet (10.0.1.0/24)</text>
+
+    <!-- ALB / Ingress -->
+    <rect x="20" y="45" width="320" height="70" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="35" y="70" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">⚖️ Application Load Balancer / SG</text>
+    <text x="35" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Ingress HTTP :80 / HTTPS :443 from 0.0.0.0/0</text>
+
+    <!-- Web EC2 Instances -->
+    <rect x="20" y="130" width="320" height="150" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="35" y="155" fill="#34d399" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">🖥️ EC2 Web App Cluster (Auto Scaling)</text>
+    <text x="35" y="180" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• OS: Amazon Linux 2023</text>
+    <text x="35" y="200" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• Bootstrap: Cloud-Init (Nginx + HTML Demo)</text>
+    <text x="35" y="220" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• IAM Role: SSM Core (Zero SSH port 22 exposed!)</text>
+    <text x="35" y="245" fill="#a7f3d0" font-family="monospace" font-size="11">Security Group: Only accepts traffic from ALB</text>
+  </g>
+
+  <!-- Private Subnet (Data Tier) -->
+  <g transform="translate(500, 165)" filter="url(#shadow18)">
+    <rect width="360" height="305" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <rect x="0" y="0" width="360" height="32" rx="10" fill="#8b5cf6"/>
+    <text x="15" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">🔒 Private Subnet (10.0.2.0/24)</text>
+
+    <!-- RDS Database -->
+    <rect x="20" y="45" width="320" height="135" rx="8" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="35" y="70" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">🗄️ Amazon RDS PostgreSQL Instance</text>
+    <text x="35" y="95" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• Zero Public IP (Completely private)</text>
+    <text x="35" y="115" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• Storage encrypted via AWS KMS</text>
+    <text x="35" y="135" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• Password managed via AWS Secrets Manager</text>
+    <text x="35" y="160" fill="#ddd6fe" font-family="monospace" font-size="11">Ingress Port 5432: Web SG ONLY</text>
+
+    <!-- S3 + DynamoDB Backend -->
+    <rect x="20" y="195" width="320" height="85" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="35" y="220" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">📦 S3 App Assets &amp; Remote State</text>
+    <text x="35" y="245" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• S3 Versioning &amp; Object Locking</text>
+    <text x="35" y="265" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">• DynamoDB Table for Terraform State Locking</text>
+  </g>
+</svg>

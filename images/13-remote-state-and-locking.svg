@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg13" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a192f" />
+      <stop offset="100%" stop-color="#172a45" />
+    </linearGradient>
+    <filter id="shadow13" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg13)" />
+
+  <text x="480" y="45" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="26" font-weight="bold" text-anchor="middle">🔒 Remote State Storage &amp; Concurrency Locking</text>
+  <text x="480" y="72" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">Preventing state race conditions and team corruption using AWS S3 &amp; DynamoDB</text>
+
+  <!-- Left Side: DevOps Engineers -->
+  <!-- Engineer 1 -->
+  <g transform="translate(60, 120)" filter="url(#shadow13)">
+    <rect width="240" height="150" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <text x="120" y="30" fill="#10b981" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">👩‍💻 Engineer Alice</text>
+    <text x="20" y="65" fill="#e2e8f0" font-family="monospace" font-size="13">$ terraform apply</text>
+    <rect x="20" y="80" width="200" height="28" rx="6" fill="#065f46" />
+    <text x="120" y="99" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Status: ACQUIRED LOCK 🟢</text>
+    <text x="20" y="130" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Modifying VPC &amp; Subnets...</text>
+  </g>
+
+  <!-- Engineer 2 -->
+  <g transform="translate(60, 310)" filter="url(#shadow13)">
+    <rect width="240" height="150" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+    <text x="120" y="30" fill="#ef4444" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">👨‍💻 Engineer Bob</text>
+    <text x="20" y="65" fill="#e2e8f0" font-family="monospace" font-size="13">$ terraform apply</text>
+    <rect x="20" y="80" width="200" height="28" rx="6" fill="#7f1d1d" />
+    <text x="120" y="99" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Status: LOCK BLOCKED ⛔</text>
+    <text x="20" y="130" fill="#f87171" font-family="monospace" font-size="11">Error: Error acquiring state lock!</text>
+  </g>
+
+  <!-- Middle DynamoDB Table: Lock Manager -->
+  <g transform="translate(360, 160)" filter="url(#shadow13)">
+    <rect width="240" height="250" rx="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
+    <rect x="0" y="0" width="240" height="42" rx="14" fill="#f59e0b"/>
+    <text x="120" y="27" fill="#0f172a" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">⚡ DynamoDB Lock Table</text>
+    
+    <text x="20" y="70" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Primary Key: LockID (String)</text>
+    
+    <rect x="15" y="85" width="210" height="95" rx="8" fill="#090d16" />
+    <text x="25" y="108" fill="#fbbf24" font-family="monospace" font-size="11">LockID: "my-app/prod"</text>
+    <text x="25" y="128" fill="#38bdf8" font-family="monospace" font-size="11">Who: "alice@laptop"</text>
+    <text x="25" y="148" fill="#34d399" font-family="monospace" font-size="11">Created: "12:35:10Z"</text>
+    <text x="25" y="168" fill="#e2e8f0" font-family="monospace" font-size="11">Operation: "Apply"</text>
+
+    <text x="20" y="205" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Locks released automatically</text>
+    <text x="20" y="225" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">after command completes!</text>
+  </g>
+
+  <!-- Right Side: AWS S3 Bucket (Remote State Storage) -->
+  <g transform="translate(660, 160)" filter="url(#shadow13)">
+    <rect width="250" height="250" rx="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
+    <rect x="0" y="0" width="250" height="42" rx="14" fill="#3b82f6"/>
+    <text x="125" y="27" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">🪣 AWS S3 Remote State</text>
+
+    <text x="20" y="75" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Key Security Pillars:</text>
+    
+    <text x="20" y="105" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12">🔐 <tspan font-weight="bold">KMS Encryption</tspan> at rest</text>
+    <text x="20" y="130" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12">📜 <tspan font-weight="bold">S3 Versioning</tspan> enabled</text>
+    <text x="35" y="148" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">(Instant rollback on error)</text>
+    
+    <text x="20" y="175" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12">🚫 <tspan font-weight="bold">Block Public Access</tspan></text>
+    <text x="20" y="200" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12">🛡️ <tspan font-weight="bold">IAM Least Privilege</tspan></text>
+    <text x="20" y="225" fill="#38bdf8" font-family="monospace" font-size="11">s3://my-bucket/terraform.tfstate</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 300 180 L 360 210" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 300 370 L 360 330" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M 600 240 L 660 240" stroke="#38bdf8" stroke-width="2"/>
+</svg>

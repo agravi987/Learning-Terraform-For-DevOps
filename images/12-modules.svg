@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b" />
+      <stop offset="100%" stop-color="#1c2541" />
+    </linearGradient>
+    <filter id="shadow12" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg12)" />
+
+  <text x="480" y="45" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="26" font-weight="bold" text-anchor="middle">🧱 Terraform Reusable Modules Architecture</text>
+  <text x="480" y="72" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">Organizing infrastructure into reusable, composable, testable building blocks</text>
+
+  <!-- Root Module Box -->
+  <g transform="translate(60, 100)" filter="url(#shadow12)">
+    <rect width="260" height="380" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
+    <rect x="0" y="0" width="260" height="42" rx="12" fill="#3b82f6"/>
+    <text x="130" y="27" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">📁 Root Module</text>
+    
+    <text x="25" y="75" fill="#93c5fd" font-family="monospace" font-size="13">main.tf</text>
+    <text x="35" y="95" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Calls child modules &amp; wires outputs</text>
+    
+    <text x="25" y="130" fill="#93c5fd" font-family="monospace" font-size="13">variables.tf</text>
+    <text x="35" y="150" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Environment specific inputs</text>
+    
+    <text x="25" y="185" fill="#93c5fd" font-family="monospace" font-size="13">outputs.tf</text>
+    <text x="35" y="205" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Endpoints, DNS names to display</text>
+    
+    <text x="25" y="240" fill="#93c5fd" font-family="monospace" font-size="13">terraform.tfvars</text>
+    <text x="35" y="260" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Actual values (dev / prod)</text>
+    
+    <!-- Code snippet box inside root -->
+    <rect x="15" y="285" width="230" height="80" rx="8" fill="#0f172a"/>
+    <text x="25" y="308" fill="#a78bfa" font-family="monospace" font-size="11">module "vpc" {</text>
+    <text x="35" y="328" fill="#38bdf8" font-family="monospace" font-size="11">  source = "./modules/vpc"</text>
+    <text x="35" y="348" fill="#34d399" font-family="monospace" font-size="11">  cidr   = var.vpc_cidr</text>
+    <text x="25" y="358" fill="#a78bfa" font-family="monospace" font-size="11">}</text>
+  </g>
+
+  <!-- Connective Arrows -->
+  <path d="M 320 200 L 450 160" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 320 280 L 450 280" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 320 360 L 450 400" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Child Module 1: VPC -->
+  <g transform="translate(460, 100)" filter="url(#shadow12)">
+    <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect x="0" y="0" width="440" height="32" rx="10" fill="#10b981"/>
+    <text x="15" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">📦 Child Module: ./modules/vpc</text>
+    <text x="15" y="55" fill="#a7f3d0" font-family="monospace" font-size="11">Inputs: cidr_block, availability_zones</text>
+    <text x="15" y="75" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Creates: aws_vpc, aws_subnet (public/private), igw, route_table</text>
+    <text x="15" y="95" fill="#38bdf8" font-family="monospace" font-size="11">Outputs: vpc_id, public_subnet_ids</text>
+  </g>
+
+  <!-- Child Module 2: Security & Compute -->
+  <g transform="translate(460, 225)" filter="url(#shadow12)">
+    <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <rect x="0" y="0" width="440" height="32" rx="10" fill="#8b5cf6"/>
+    <text x="15" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">📦 Child Module: ./modules/ec2-cluster</text>
+    <text x="15" y="55" fill="#ddd6fe" font-family="monospace" font-size="11">Inputs: vpc_id (from VPC module), instance_type, ami_id</text>
+    <text x="15" y="75" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Creates: aws_instance, aws_security_group, aws_key_pair</text>
+    <text x="15" y="95" fill="#38bdf8" font-family="monospace" font-size="11">Outputs: instance_public_ips, security_group_id</text>
+  </g>
+
+  <!-- Child Module 3: Database -->
+  <g transform="translate(460, 350)" filter="url(#shadow12)">
+    <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="0" y="0" width="440" height="32" rx="10" fill="#f59e0b"/>
+    <text x="15" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">📦 Child Module: ./modules/rds</text>
+    <text x="15" y="55" fill="#fde68a" font-family="monospace" font-size="11">Inputs: subnet_ids, db_name, allocated_storage</text>
+    <text x="15" y="75" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">Creates: aws_db_instance, aws_db_subnet_group</text>
+    <text x="15" y="95" fill="#38bdf8" font-family="monospace" font-size="11">Outputs: db_endpoint, db_port</text>
+  </g>
+</svg>

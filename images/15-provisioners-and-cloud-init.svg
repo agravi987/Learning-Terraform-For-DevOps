@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg15" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091428" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <filter id="shadow15" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg15)" />
+
+  <text x="480" y="45" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="26" font-weight="bold" text-anchor="middle">⚙️ Provisioners vs Cloud-Init &amp; Modern Configuration</text>
+  <text x="480" y="72" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">Why Terraform provisioners are a last resort &amp; how cloud-init / Packer lead the way</text>
+
+  <!-- Left: Provisioners (Anti-Pattern / Last Resort) -->
+  <g transform="translate(60, 110)" filter="url(#shadow15)">
+    <rect width="400" height="380" rx="14" fill="#1e293b" stroke="#f43f5e" stroke-width="2.5"/>
+    <rect x="0" y="0" width="400" height="42" rx="14" fill="#f43f5e"/>
+    <text x="200" y="27" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">⚠️ Provisioners (Last Resort)</text>
+
+    <text x="25" y="75" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">local-exec &amp; remote-exec</text>
+    <text x="25" y="100" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Runs ad-hoc shell commands after resource create</text>
+    <text x="25" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Breaks idempotency and declarative paradigm</text>
+    <text x="25" y="150" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Requires direct SSH / WinRM network openings</text>
+    <text x="25" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Makes resources "tainted" on failure</text>
+
+    <!-- Code box -->
+    <rect x="20" y="200" width="360" height="160" rx="8" fill="#090d16"/>
+    <text x="35" y="225" fill="#f43f5e" font-family="monospace" font-size="12">resource "aws_instance" "bad_idea" {</text>
+    <text x="50" y="250" fill="#94a3b8" font-family="monospace" font-size="11">  # Fragile: breaks on network hiccup</text>
+    <text x="50" y="275" fill="#fb7185" font-family="monospace" font-size="12">  provisioner "remote-exec" {</text>
+    <text x="65" y="300" fill="#f8fafc" font-family="monospace" font-size="12">    inline = ["apt-get update", ...]</text>
+    <text x="50" y="325" fill="#fb7185" font-family="monospace" font-size="12">  }</text>
+    <text x="35" y="350" fill="#f43f5e" font-family="monospace" font-size="12">}</text>
+  </g>
+
+  <!-- Right: Modern Cloud-Init & Golden Images (Best Practice) -->
+  <g transform="translate(500, 110)" filter="url(#shadow15)">
+    <rect width="400" height="380" rx="14" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
+    <rect x="0" y="0" width="400" height="42" rx="14" fill="#10b981"/>
+    <text x="200" y="27" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">✅ Modern Alternatives (Recommended)</text>
+
+    <text x="25" y="75" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Cloud-Init / User Data &amp; Golden AMIs</text>
+    <text x="25" y="100" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Native cloud bootstrap execution during OS boot</text>
+    <text x="25" y="125" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• No SSH ports exposed to the public internet</text>
+    <text x="25" y="150" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Packer builds immutable pre-configured AMIs</text>
+    <text x="25" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">• Ansible / SSM handles post-boot management</text>
+
+    <!-- Code box -->
+    <rect x="20" y="200" width="360" height="160" rx="8" fill="#090d16"/>
+    <text x="35" y="225" fill="#34d399" font-family="monospace" font-size="12">resource "aws_instance" "web" {</text>
+    <text x="50" y="250" fill="#94a3b8" font-family="monospace" font-size="11">  # Clean &amp; idempotent bootstrap</text>
+    <text x="50" y="275" fill="#38bdf8" font-family="monospace" font-size="12">  user_data = &lt;&lt;-EOF</text>
+    <text x="65" y="300" fill="#f8fafc" font-family="monospace" font-size="12">    #!/bin/bash</text>
+    <text x="65" y="325" fill="#f8fafc" font-family="monospace" font-size="12">    dnf install -y nginx &amp;&amp; systemctl start nginx</text>
+    <text x="50" y="345" fill="#38bdf8" font-family="monospace" font-size="12">  EOF</text>
+    <text x="35" y="360" fill="#34d399" font-family="monospace" font-size="12">}</text>
+  </g>
+</svg>
